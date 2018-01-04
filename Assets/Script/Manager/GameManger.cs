@@ -5,6 +5,51 @@ using UnityEngine;
 public class GameManger : MonoBehaviour {
 
     public static GameManger instance;
+    private readonly int SPAWNER_LENGTH = 4;
+
+    public float[] fireRates;
+
+    private float fireRate;
+    public float FireRate {
+        get {
+            return fireRate;
+        }
+        set {
+            fireRate = value;
+        }
+    }
+
+    [SerializeField]
+    private int score;
+    public int Score {
+        get {
+            return score;
+        }
+        set {
+            score = value;
+            if(IsStart && IsPlaying){
+                UIManager.instance.SetScore();
+            }
+            if(score == 3){
+                Level++;
+            }
+            else if(score == 6){
+                Level++;
+            }
+        }
+    }
+
+    [SerializeField]
+    private int level;
+    public int Level {
+        get {
+            return level;
+        }
+        set {
+            level = value;
+            SetConfig();
+        }
+    }
 
     [SerializeField]
     private bool isStart;
@@ -32,26 +77,34 @@ public class GameManger : MonoBehaviour {
         }
     }
 
-    public Spanwer[] spawner;
+    public Spawner[] spawner;
 
     private void Awake()
     {
         if (instance == null) instance = this;
+        IsStart = false;
+        IsPlaying = false;
     }
 
-    private void Start()
+    //private void Start()
+    //{
+    //    StartGame();
+    //}
+
+    private void SetConfig(){
+        FireRate = fireRates[Level];
+    }
+
+    public void StartGame()
     {
-        StartGame();
-        PlayerController.instance.StartGame();
-    }
-
-    public void StartGame(){
+        Debug.Log("Start");
         IsStart = true;
         IsPlaying = true;
+        Level = 0;
 
-        foreach(Spanwer _sp in spawner){
-            _sp.Spawn();
-        }
+        UIManager.instance.OnGamePanel();
+        PlayerController.instance.StartGame();
+        StartCoroutine(SpawnInterval());
     }
 
     public void GameOver()
@@ -68,7 +121,19 @@ public class GameManger : MonoBehaviour {
         IsPlaying = false;
     }
 
+    IEnumerator SpawnInterval(){
+        while(IsStart && IsPlaying){
+            yield return new WaitForSeconds(1.5f);
+            var r = Random.Range(0, SPAWNER_LENGTH);
+            spawner[r].Spawn();
+        }
+    }
 
+    public void GetScoreByEnemy(){
+        if(IsStart && IsPlaying){
+            Score++;
+        }
+    }
 
 
 }

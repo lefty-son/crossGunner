@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public static PlayerController instance;
+
     public enum DIRECTION {
         TOP,
         LEFT,
@@ -14,7 +15,10 @@ public class PlayerController : MonoBehaviour {
 
     public DIRECTION direction;
 
-    private readonly int BULLET_COUNT = 10;
+    private readonly int BULLET_COUNT = 20;
+    public float fireRate;
+    private bool isReadyToFire;
+
     private int bulletIndex;
     public GameObject bulletObject;
     private List<Bullet> bulletPool;
@@ -25,11 +29,19 @@ public class PlayerController : MonoBehaviour {
         Init();
     }
 
+    private void FixedUpdate()
+    {
+        fireRate -= Time.deltaTime;
+        if(fireRate <= 0f){
+            isReadyToFire = true;
+        }
+    }
+
     private void Init(){
+        isReadyToFire = true;
         direction = DIRECTION.TOP;
         bulletPool = new List<Bullet>();
         MakePool();
-        StartGame();
     }
 
     // Call this from GameManger ONLY!
@@ -69,7 +81,16 @@ public class PlayerController : MonoBehaviour {
         }
 
         Rotate(direction);
-        Shoot(direction);
+        if(isReadyToFire){
+            Shoot(direction);
+            fireRate = GameManger.instance.FireRate;
+            isReadyToFire = false;
+        }
+        else {
+            Debug.Log("NOT READY TO SHOOT");
+            return;
+        }
+
     }
 
     private void Rotate(DIRECTION _direction){
