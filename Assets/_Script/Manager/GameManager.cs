@@ -2,13 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManger : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
-    public static GameManger instance;
+    public static GameManager instance;
     private readonly int SPAWNER_LENGTH = 4;
 
-    public float[] fireRates;
+    public Spawner[] spawner;
 
+    #region CONFIG
+
+    public float[] spawnTimes;
+    public float[] fireRates;
+    public float[] enemySpeeds;
+
+    #endregion
+
+    #region PROPERTY
+
+    [SerializeField]
+    private float enemySpeed;
+    public float EnemySpeed
+    {
+        get
+        {
+            return enemySpeed;
+        }
+        set 
+        {
+            enemySpeed = value;
+        }
+    }
+
+    [SerializeField]
+    private float spawnTime;
+    public float SpawnTime
+    {
+        get
+        {
+            return spawnTime;
+        }
+        set {
+            spawnTime = value;
+        }
+    }
+
+    [SerializeField]
     private float fireRate;
     public float FireRate {
         get {
@@ -30,10 +68,14 @@ public class GameManger : MonoBehaviour {
             if(IsStart && IsPlaying){
                 UIManager.instance.SetScore();
             }
-            if(score == 3){
+            if(score == 5){
                 Level++;
             }
-            else if(score == 6){
+            else if(score == 10){
+                Level++;
+            }
+            else if (score == 15)
+            {
                 Level++;
             }
         }
@@ -77,7 +119,9 @@ public class GameManger : MonoBehaviour {
         }
     }
 
-    public Spawner[] spawner;
+#endregion
+
+
 
     private void Awake()
     {
@@ -86,25 +130,31 @@ public class GameManger : MonoBehaviour {
         IsPlaying = false;
     }
 
-    //private void Start()
-    //{
-    //    StartGame();
-    //}
-
-    private void SetConfig(){
-        FireRate = fireRates[Level];
+    private void CleanUp(){
+        Score = 0;
+        Level = 0;
+        ObjectHelper.instance.StartGame();
+        SpawnManager.instance.CleanUp();
     }
 
     public void StartGame()
     {
-        Debug.Log("Start");
         IsStart = true;
         IsPlaying = true;
-        Level = 0;
+
+        // Set Config
+        CleanUp();
 
         UIManager.instance.OnGamePanel();
         PlayerController.instance.StartGame();
         StartCoroutine(SpawnInterval());
+    }
+
+    private void SetConfig()
+    {
+        FireRate = fireRates[Level];
+        SpawnTime = spawnTimes[Level];
+        EnemySpeed = enemySpeeds[Level];
     }
 
     public void GameOver()
@@ -112,6 +162,7 @@ public class GameManger : MonoBehaviour {
         IsStart = false;
         IsPlaying = false;
         ShakeOnGameOver();
+        UIManager.instance.OnHomePanel();
     }
 
     public void ResumeGame(){
@@ -124,7 +175,7 @@ public class GameManger : MonoBehaviour {
 
     IEnumerator SpawnInterval(){
         while(IsStart && IsPlaying){
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(spawnTime);
             var r = Random.Range(0, SPAWNER_LENGTH);
             spawner[r].Spawn();
         }

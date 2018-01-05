@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour {
 
     private void Update()
     {
-        if(GameManger.instance.IsStart && GameManger.instance.IsPlaying){
+        if(GameManager.instance.IsStart && GameManager.instance.IsPlaying){
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, enemy[myDirection].position, step);
         }

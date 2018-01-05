@@ -18,25 +18,41 @@ public class UIManager : MonoBehaviour {
     }
 
     public void SetScore(){
-        t_Score.text = GameManger.instance.Score.ToString();
+        t_Score.text = GameManager.instance.Score.ToString();
         a_Score.Play();
     }
 
     public void OnStart(){
-        if(!GameManger.instance.IsStart){
+        if(!GameManager.instance.IsStart && !GameManager.instance.IsPlaying){
+            FindObjectOfType<Blur>().StartCoroutine("BlurOut");
             foreach(Animation anim in a_HomeAnimations){
                 var anim_FaintOut = anim.GetClip("UI_FaintOut");
                 anim.clip = anim_FaintOut;
                 anim.Play();
             }
+            GameManager.instance.StartGame();
             SetArrowColor();
-            GameManger.instance.StartGame();
         }
     }
 
     public void OnGamePanel(){
         p_Control.SetActive(true);
         p_Top.SetActive(true);
+    }
+
+    public void OnHomePanel(){
+        foreach (Animation anim in a_HomeAnimations)
+        {
+            var anim_FaintOut = anim.GetClip("UI_ScaleUpForBlack");
+            anim.clip = anim_FaintOut;
+            anim.Play();
+        }
+        p_Home.SetActive(true);
+        OffControlPanel();
+    }
+
+    public void OffControlPanel(){
+        p_Control.SetActive(false);
     }
 
     public void OffHomePanel(){
@@ -64,4 +80,21 @@ public class UIManager : MonoBehaviour {
             _img.color = ObjectHelper.instance._right.color;
         }
     }
+
+    //public void BlurIn(){
+        
+    //}
+
+    //public void BlurOut(){
+        
+    //}
+
+    //IEnumerator _BlurIn(){
+    //    yield return null;
+    //}
+
+    //IEnumerator _BlurOut()
+    //{
+    //    yield return null;
+    //}
 }

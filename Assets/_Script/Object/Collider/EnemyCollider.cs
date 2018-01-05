@@ -11,13 +11,13 @@ public class EnemyCollider : MonoBehaviour {
             ParticleManager.instance.PutParticleOnEnemy(transform);
             if (collision.CompareTag("LeftBullet"))
             {
-                GameManger.instance.GetScoreByEnemy();
-                GameManger.instance.ShakeOnKillEnemy();
+                GameManager.instance.GetScoreByEnemy();
+                GameManager.instance.ShakeOnKillEnemy();
 
                 gameObject.SetActive(false);
             }
             else {
-                GameManger.instance.GameOver();
+                GameManager.instance.GameOver();
             }
         }
 
@@ -26,14 +26,14 @@ public class EnemyCollider : MonoBehaviour {
             ParticleManager.instance.PutParticleOnEnemy(transform);
             if (collision.CompareTag("RightBullet"))
             {
-                GameManger.instance.GetScoreByEnemy();
-                GameManger.instance.ShakeOnKillEnemy();
+                GameManager.instance.GetScoreByEnemy();
+                GameManager.instance.ShakeOnKillEnemy();
 
                 gameObject.SetActive(false);
             }
             else
             {
-                GameManger.instance.GameOver();
+                GameManager.instance.GameOver();
             }
         }
 

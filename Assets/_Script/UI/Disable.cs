@@ -7,4 +7,12 @@ public class Disable : MonoBehaviour {
     public void OffHomePanel(){
         UIManager.instance.OffHomePanel();
     }
+
+    public void BlurOut(){
+        
+    }
+
+    public void BlurIn(){
+        
+    }
 }

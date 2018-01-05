@@ -26,6 +26,10 @@ public class SpawnManager : MonoBehaviour {
         MakePool();
     }
 
+    public void CleanUp(){
+        MoveToVoid();
+    }
+
     private void MakePool(){
         for (int i = 0; i < ENEMY_LENGTH; i++){
             poolEnemy.Add(Instantiate(enemyObject));

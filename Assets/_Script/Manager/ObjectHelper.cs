@@ -19,7 +19,7 @@ public class ObjectHelper : MonoBehaviour {
         StartGame();
     }
 
-    private void StartGame(){
+    public void StartGame(){
         var r = Random.Range(0, _object.Length); 
         leftColor = _object[r].leftColor;
         rightColor = _object[r].rightColor;

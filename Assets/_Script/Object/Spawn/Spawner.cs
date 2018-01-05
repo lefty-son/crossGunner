@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
-        if(GameManger.instance.IsStart && GameManger.instance.IsPlaying){
+        if(GameManager.instance.IsStart && GameManager.instance.IsPlaying){
             //var r = deck[Random.Range(0, DECK_SIZE)];
             //GameObject enemy;
             //if (r == ENEMY)

@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour {
         Rotate(direction);
         if(isReadyToFire){
             Shoot(direction);
-            fireRate = GameManger.instance.FireRate;
+            fireRate = GameManager.instance.FireRate;
             isReadyToFire = false;
         }
         else {
