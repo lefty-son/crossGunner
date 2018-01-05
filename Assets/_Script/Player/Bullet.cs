@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
     private SpriteRenderer sprr;
 
-    public float speed;
     private readonly int TOP         = 0;
     private readonly int LEFT        = 1;
     private readonly int RIGHT       = 2;
@@ -31,7 +30,7 @@ public class Bullet : MonoBehaviour {
     private void Update()
     {
         if(GameManager.instance.IsStart && GameManager.instance.IsPlaying){
-            float step = speed * Time.deltaTime;
+            float step = GameManager.instance.BulletSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, enemy[myDirection].position, step);
         }
     }

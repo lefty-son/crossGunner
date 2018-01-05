@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
+
     private readonly int SPAWNER_LENGTH = 4;
 
     public Spawner[] spawner;
@@ -14,10 +15,24 @@ public class GameManager : MonoBehaviour {
     public float[] spawnTimes;
     public float[] fireRates;
     public float[] enemySpeeds;
+    public float[] bulletSpeeds;    // [1..2]
 
     #endregion
 
     #region PROPERTY
+
+    [SerializeField]
+    private float bulletSpeed;
+    public float BulletSpeed
+    {
+        get
+        {
+            return bulletSpeed;
+        }
+        set {
+            bulletSpeed = value;
+        }
+    }
 
     [SerializeField]
     private float enemySpeed;
@@ -67,6 +82,7 @@ public class GameManager : MonoBehaviour {
             score = value;
             if(IsStart && IsPlaying){
                 UIManager.instance.SetScore();
+
             }
             if(score == 5){
                 Level++;
@@ -121,8 +137,6 @@ public class GameManager : MonoBehaviour {
 
 #endregion
 
-
-
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -155,6 +169,7 @@ public class GameManager : MonoBehaviour {
         FireRate = fireRates[Level];
         SpawnTime = spawnTimes[Level];
         EnemySpeed = enemySpeeds[Level];
+        BulletSpeed = bulletSpeeds[Level];
     }
 
     public void GameOver()
@@ -162,6 +177,7 @@ public class GameManager : MonoBehaviour {
         IsStart = false;
         IsPlaying = false;
         ShakeOnGameOver();
+        CheckTopScore(Score);
         UIManager.instance.OnHomePanel();
     }
 
@@ -193,10 +209,16 @@ public class GameManager : MonoBehaviour {
 
     public void ShakeOnKillBoss()
     {
-        EZCameraShake.CameraShaker.Instance.ShakeOnce(1.5f, 20, 0f, .5f);
+        EZCameraShake.CameraShaker.Instance.ShakeOnce(3f, 20, 0f, 2f);
     }
 
     public void ShakeOnKillEnemy(){
         EZCameraShake.CameraShaker.Instance.ShakeOnce(0.75f, 20, 0f, .35f);
+    }
+
+    private void CheckTopScore(int _value){
+        if(_value > PrefManager.instance.GetTopScore()){
+            PrefManager.instance.SetTopScore(_value);
+        }
     }
 }
