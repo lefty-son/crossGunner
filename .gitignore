@@ -14,6 +14,8 @@
 /xCode
 /Assets/GooglePlayGames/
 /Assets/GooglePlayGames
+/Assets/PlayServicesResolver/
+/Assets/PlayServicesResolver
 
 # Visual Studio 2015 cache directory
 /.vs/
