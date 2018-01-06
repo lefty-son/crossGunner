@@ -26,12 +26,12 @@ public class SocialManager : MonoBehaviour {
     private readonly string GPGS_ACHIEVE_5 = "CgkIkLSVpOIeEAIQBQ";
     private readonly string GPGS_ACHIEVE_6 = "CgkIkLSVpOIeEAIQBg";
 
-    private readonly string IOS_ACHIEVE_1 = "70548003";
-    private readonly string IOS_ACHIEVE_2 = "70548001";
-    private readonly string IOS_ACHIEVE_3 = "70548000";
-    private readonly string IOS_ACHIEVE_4 = "70547999";
-    private readonly string IOS_ACHIEVE_5 = "70548002";
-    private readonly string IOS_ACHIEVE_6 = "70548065";
+    private readonly string IOS_ACHIEVE_1 = "cg_achive_1";
+    private readonly string IOS_ACHIEVE_2 = "cg_achive_2";
+    private readonly string IOS_ACHIEVE_3 = "cg_achive_3";
+    private readonly string IOS_ACHIEVE_4 = "cg_achive_4";
+    private readonly string IOS_ACHIEVE_5 = "cg_achive_5";
+    private readonly string IOS_ACHIEVE_6 = "cg_achive_6";
 
     private void Awake()
     {
@@ -42,6 +42,8 @@ public class SocialManager : MonoBehaviour {
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
+
+        GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
 #endif
     }
 
@@ -174,8 +176,10 @@ public class SocialManager : MonoBehaviour {
                 PrefManager.instance.SetAchieve1();
             });
 #elif UNITY_IOS
+            Debug.Log("### 1-1");
             Social.ReportProgress(IOS_ACHIEVE_1, 100f, (bool success) =>
             {
+                Debug.Log("### 1-2");
                 PrefManager.instance.SetAchieve1();
             });
 #endif
@@ -215,8 +219,10 @@ public class SocialManager : MonoBehaviour {
                 PrefManager.instance.SetAchieve4();
             });
 #elif UNITY_IOS
+            Debug.Log("### 4-1");
             Social.ReportProgress(IOS_ACHIEVE_4, 100f, (bool success) =>
             {
+                Debug.Log("### 4-2");
                 PrefManager.instance.SetAchieve4();
             });
 #endif
@@ -229,8 +235,10 @@ public class SocialManager : MonoBehaviour {
                 PrefManager.instance.SetAchieve5();
             });
 #elif UNITY_IOS
+            Debug.Log("### 5-1");
             Social.ReportProgress(IOS_ACHIEVE_5, 100f, (bool success) =>
             {
+                Debug.Log("### 5-2");
                 PrefManager.instance.SetAchieve5();
             });
 #endif

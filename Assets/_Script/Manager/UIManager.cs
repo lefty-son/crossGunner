@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
     public static UIManager instance;
     private static bool isFirst;
-    public GameObject p_Home, p_Control, p_Top, p_Credit;
+    public GameObject p_Home, p_Control, p_Top, p_Credit, p_Settings;
     public Animation a_Score, a_Background, a_Title;
     public Animation[] a_HomeAnimations, a_HomeScoreAnimations;
     public Text t_CurrentScore, t_LastScore, t_TopScore;
@@ -18,6 +18,15 @@ public class UIManager : MonoBehaviour {
     {
         if (instance == null) instance = this;
         isFirst = true;
+    }
+
+    public void Rate()
+    {
+#if UNITY_ANDROID
+        Application.OpenURL("market://details?id=com.atone.crossgunner");
+#elif UNITY__IOS
+        Application.OpenURL("itms-apps://itunes.apple.com/app/id1330908883");
+#endif
     }
 
     public void SetScore(){
@@ -138,6 +147,17 @@ public class UIManager : MonoBehaviour {
         {
             _img.color = ObjectHelper.instance._right.color;
         }
+    }
+
+    public void OnSettingsPanel(){
+        p_Home.SetActive(false);
+        p_Settings.SetActive(true);
+    }
+
+    public void OffSettingsPanel()
+    {
+        p_Settings.SetActive(false);
+        p_Home.SetActive(true);
     }
 
     public void OnQuit(){

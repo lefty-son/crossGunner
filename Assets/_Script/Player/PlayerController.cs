@@ -124,9 +124,4 @@ public class PlayerController : MonoBehaviour {
         }
         bulletIndex++;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("EX");
-    }
 }

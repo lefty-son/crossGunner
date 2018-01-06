@@ -7,6 +7,9 @@ public class PrefManager : MonoBehaviour {
 
     private readonly string IS_FIRST = "IS_FIRST";
     private readonly string TOP_SCORE = "TOP_SCORE";
+    private readonly string ADS_REMOVED = "ADS_REMOVED";
+    private readonly string IS_MUTED = "IS_MUTED";
+    private readonly string IS_NIGHT = "IS_NITGHT";
     private readonly string ACHIEVE_1 = "ACHIEVE_1";
     private readonly string ACHIEVE_2 = "ACHIEVE_2";
     private readonly string ACHIEVE_3 = "ACHIEVE_3";
@@ -35,7 +38,36 @@ public class PrefManager : MonoBehaviour {
             PlayerPrefs.SetInt(ACHIEVE_4, 0);
             PlayerPrefs.SetInt(ACHIEVE_5, 0);
             PlayerPrefs.SetInt(ACHIEVE_6, 0);
+
+            PlayerPrefs.SetInt(ADS_REMOVED, 0);
+
+            PlayerPrefs.SetInt(IS_MUTED, 0);
+            PlayerPrefs.SetInt(IS_NIGHT, 0);
         }
+    }
+
+    public int GetIsMuted(){
+        return PlayerPrefs.GetInt(IS_MUTED);
+    }
+
+    public void SetIsMuted(int _value){
+        PlayerPrefs.SetInt(IS_MUTED, _value);
+    }
+
+    public int GetIsNight(){
+        return PlayerPrefs.GetInt(IS_NIGHT);
+    }
+
+    public void SetIsNight(int _value){
+        PlayerPrefs.SetInt(IS_NIGHT, _value);
+    }
+
+    public int GetAdsRemoved(){
+        return PlayerPrefs.GetInt(ADS_REMOVED);
+    }
+
+    public void SetAdsRemoved(){
+        PlayerPrefs.SetInt(ADS_REMOVED, 1);
     }
 
     public int GetTopScore(){

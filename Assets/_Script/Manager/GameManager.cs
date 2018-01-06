@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    [SerializeField]
+    private int adsMeter;
+    private readonly int adsLimit = 5;
 
     public static GameManager instance;
 
@@ -13,7 +16,6 @@ public class GameManager : MonoBehaviour {
     #region CONFIG
 
     public float[] spawnTimes;
-    public float[] fireRates;
     public float[] enemySpeeds;
     public float[] bulletSpeeds;    // [1..2]
 
@@ -84,8 +86,11 @@ public class GameManager : MonoBehaviour {
                 UIManager.instance.SetScore();
 
             }
-
-            if(score >= 20)
+            if(score >= 30)
+            {
+                Level = 5;
+            }
+            else if(score >= 20)
             {
                 Level = 4;
             }
@@ -152,6 +157,7 @@ public class GameManager : MonoBehaviour {
         if (instance == null) instance = this;
         IsStart = false;
         IsPlaying = false;
+        adsMeter = 0;
     }
 
     private void CleanUp(){
@@ -176,7 +182,6 @@ public class GameManager : MonoBehaviour {
 
     private void SetConfig()
     {
-        //FireRate = fireRates[Level];
         SpawnTime = spawnTimes[Level];
         EnemySpeed = enemySpeeds[Level];
         BulletSpeed = bulletSpeeds[Level];
@@ -190,6 +195,14 @@ public class GameManager : MonoBehaviour {
         CheckTopScore(Score);
         UIManager.instance.OnHomePanel();
         SoundManager.instance.PlayDeath();
+        adsMeter += Score;
+        if(adsMeter >= adsLimit){
+            AdsManager.instance.ShowResi();
+        }
+    }
+
+    public void InitAdsMeter(){
+        adsMeter = 0;
     }
 
     public void ResumeGame(){
