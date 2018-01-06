@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private readonly int DECK_SIZE = 12;
+    private readonly int DECK_SIZE = 15;
     private readonly int ENEMY = 0;
     private readonly int ITEM = 1;
 
@@ -15,7 +15,8 @@ public class Spawner : MonoBehaviour
         deck = new int[] 
         {
 			0,0,0,0,0,
-			0,0,0,0,0,0,1
+			0,0,0,0,0,
+            0,1,0,0,0
         };
     }
 

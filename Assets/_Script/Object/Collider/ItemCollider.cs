@@ -8,7 +8,7 @@ public class ItemCollider : MonoBehaviour {
     {
         if(collision.CompareTag("LeftBullet") || collision.CompareTag("RightBullet")){
             var count = 0;
-
+            SoundManager.instance.PlayItem();
             if(PrefManager.instance.GetAchieve4() == 0){
                 SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_4);
             }

@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour {
     public DIRECTION direction;
 
     private readonly int BULLET_COUNT = 20;
-    public float fireRate;
-    private bool isReadyToFire;
 
     private int bulletIndex;
     public GameObject bulletObject;
@@ -31,18 +29,8 @@ public class PlayerController : MonoBehaviour {
         Init();
     }
 
-    private void FixedUpdate()
-    {
-        fireRate -= Time.deltaTime;
-        if (fireRate <= 0f)
-        {
-            isReadyToFire = true;
-        }
-    }
-
     private void Init(){
         sprr = GetComponent<SpriteRenderer>();
-        isReadyToFire = true;
         direction = DIRECTION.TOP;
         bulletPool = new List<Bullet>();
         MakePool();
@@ -95,14 +83,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         Rotate(direction);
-        if(isReadyToFire){
-            Shoot(direction);
-            fireRate = GameManager.instance.FireRate;
-            isReadyToFire = false;
-        }
-        else {
-            return;
-        }
+        Shoot(direction);
 
     }
 

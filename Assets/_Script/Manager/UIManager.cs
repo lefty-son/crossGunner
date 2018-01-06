@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,9 @@ public class UIManager : MonoBehaviour {
 
     public void SetHomeScore(){
         t_LastScore.text = GameManager.instance.Score.ToString();
-        t_TopScore.text = PrefManager.instance.GetTopScore().ToString();
+        StringBuilder stb = new StringBuilder("best: ");
+        stb.Append(PrefManager.instance.GetTopScore());
+        t_TopScore.text = stb.ToString();
     }
 
     public void OnStart(){
@@ -114,11 +117,13 @@ public class UIManager : MonoBehaviour {
     }
 
     public void OnCreditPanel(){
+        p_Home.SetActive(false);
         p_Credit.SetActive(true);
     }
 
     public void OffCreditPanel(){
         p_Credit.SetActive(false);
+        p_Home.SetActive(true);
     }
 
     public void Shake(){
@@ -135,20 +140,8 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    //public void BlurIn(){
-        
-    //}
+    public void OnQuit(){
+        Application.Quit();
+    }
 
-    //public void BlurOut(){
-        
-    //}
-
-    //IEnumerator _BlurIn(){
-    //    yield return null;
-    //}
-
-    //IEnumerator _BlurOut()
-    //{
-    //    yield return null;
-    //}
 }

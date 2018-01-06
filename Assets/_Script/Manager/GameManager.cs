@@ -84,18 +84,26 @@ public class GameManager : MonoBehaviour {
                 UIManager.instance.SetScore();
 
             }
-            //TODO: Make more levels[1..10];
-            if(score >= 7){
+
+            if(score >= 20)
+            {
+                Level = 4;
+            }
+            else if(score >= 15)
+            {
                 Level = 3;
             }
-            else if(score >= 5){
+            else if (score >= 10)
+            {
                 Level = 2;
             }
-            else if (score >= 3)
+            else if(score >= 5)
             {
                 Level = 1;
             }
-
+            else {
+                Level = 0;
+            }
         }
     }
 
@@ -168,7 +176,7 @@ public class GameManager : MonoBehaviour {
 
     private void SetConfig()
     {
-        FireRate = fireRates[Level];
+        //FireRate = fireRates[Level];
         SpawnTime = spawnTimes[Level];
         EnemySpeed = enemySpeeds[Level];
         BulletSpeed = bulletSpeeds[Level];
@@ -181,6 +189,7 @@ public class GameManager : MonoBehaviour {
         ShakeOnGameOver();
         CheckTopScore(Score);
         UIManager.instance.OnHomePanel();
+        SoundManager.instance.PlayDeath();
     }
 
     public void ResumeGame(){
@@ -219,6 +228,9 @@ public class GameManager : MonoBehaviour {
     }
 
     private void CheckTopScore(int _value){
+        if(_value > PrefManager.instance.GetTopScore()){
+            PrefManager.instance.SetTopScore(_value);
+        }
         if (_value >= 100 && PrefManager.instance.GetAchieve1() == 0)
         {
             SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_3);
@@ -233,9 +245,6 @@ public class GameManager : MonoBehaviour {
         {
             SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_1);
             return;
-        }
-        if(_value > PrefManager.instance.GetTopScore()){
-            PrefManager.instance.SetTopScore(_value);
         }
     }
 }

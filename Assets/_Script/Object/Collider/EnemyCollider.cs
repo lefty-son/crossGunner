@@ -11,6 +11,7 @@ public class EnemyCollider : MonoBehaviour {
             ParticleManager.instance.PutParticleOnEnemy(transform);
             if (collision.CompareTag("LeftBullet"))
             {
+                SoundManager.instance.PlayDestroy();
                 GameManager.instance.GetScoreByEnemy();
                 GameManager.instance.ShakeOnKillEnemy();
 
@@ -26,6 +27,7 @@ public class EnemyCollider : MonoBehaviour {
             ParticleManager.instance.PutParticleOnEnemy(transform);
             if (collision.CompareTag("RightBullet"))
             {
+                SoundManager.instance.PlayDestroy();
                 GameManager.instance.GetScoreByEnemy();
                 GameManager.instance.ShakeOnKillEnemy();
 
