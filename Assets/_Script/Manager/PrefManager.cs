@@ -7,6 +7,12 @@ public class PrefManager : MonoBehaviour {
 
     private readonly string IS_FIRST = "IS_FIRST";
     private readonly string TOP_SCORE = "TOP_SCORE";
+    private readonly string ACHIEVE_1 = "ACHIEVE_1";
+    private readonly string ACHIEVE_2 = "ACHIEVE_2";
+    private readonly string ACHIEVE_3 = "ACHIEVE_3";
+    private readonly string ACHIEVE_4 = "ACHIEVE_4";
+    private readonly string ACHIEVE_5 = "ACHIEVE_5";
+    private readonly string ACHIEVE_6 = "ACHIEVE_6";
 
     private void Awake()
     {
@@ -22,6 +28,13 @@ public class PrefManager : MonoBehaviour {
             // Welcome!
             PlayerPrefs.SetInt(IS_FIRST, 0);
             PlayerPrefs.SetInt(TOP_SCORE, 0);
+
+            PlayerPrefs.SetInt(ACHIEVE_1, 0);
+            PlayerPrefs.SetInt(ACHIEVE_2, 0);
+            PlayerPrefs.SetInt(ACHIEVE_3, 0);
+            PlayerPrefs.SetInt(ACHIEVE_4, 0);
+            PlayerPrefs.SetInt(ACHIEVE_5, 0);
+            PlayerPrefs.SetInt(ACHIEVE_6, 0);
         }
     }
 
@@ -30,8 +43,56 @@ public class PrefManager : MonoBehaviour {
     }
 
     public void SetTopScore(int _value){
-        Debug.Log("Setting new score");
         PlayerPrefs.SetInt(TOP_SCORE, _value);
+        SocialManager.instance.OnRecordLeaderboard();
+    }
+
+    public int GetAchieve1(){
+        return PlayerPrefs.GetInt(ACHIEVE_1);
+    }
+    public int GetAchieve2()
+    {
+        return PlayerPrefs.GetInt(ACHIEVE_2);
+    }
+    public int GetAchieve3()
+    {
+        return PlayerPrefs.GetInt(ACHIEVE_3);
+    }
+    public int GetAchieve4()
+    {
+        return PlayerPrefs.GetInt(ACHIEVE_4);
+    }
+    public int GetAchieve5()
+    {
+        return PlayerPrefs.GetInt(ACHIEVE_5);
+    }
+    public int GetAchieve6()
+    {
+        return PlayerPrefs.GetInt(ACHIEVE_6);
+    }
+
+    public void SetAchieve1(){
+        PlayerPrefs.SetInt(ACHIEVE_1, 1);
+    }
+    public void SetAchieve2()
+    {
+        PlayerPrefs.SetInt(ACHIEVE_2, 1);
+    }
+    public void SetAchieve3()
+    {
+        PlayerPrefs.SetInt(ACHIEVE_3, 1);
+    }
+    public void SetAchieve4()
+    {
+        PlayerPrefs.SetInt(ACHIEVE_4, 1);
+    }
+    public void SetAchieve5()
+    {
+        PlayerPrefs.SetInt(ACHIEVE_5, 1);
+    }
+    public void SetAchieve6()
+    {
+        PlayerPrefs.SetInt(ACHIEVE_6, 1);
     }
 
     public void DBG_DeleteAll(){

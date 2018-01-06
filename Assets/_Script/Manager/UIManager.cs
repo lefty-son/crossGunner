@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
     public static UIManager instance;
+    private static bool isFirst;
     public GameObject p_Home, p_Control, p_Top, p_Credit;
-    public Animation a_Score;
+    public Animation a_Score, a_Background, a_Title;
     public Animation[] a_HomeAnimations, a_HomeScoreAnimations;
     public Text t_CurrentScore, t_LastScore, t_TopScore;
 
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour {
     private void Awake()
     {
         if (instance == null) instance = this;
+        isFirst = true;
     }
 
     public void SetScore(){
@@ -31,6 +33,18 @@ public class UIManager : MonoBehaviour {
         if(!GameManager.instance.IsStart && !GameManager.instance.IsPlaying){
             FindObjectOfType<Blur>().StartCoroutine("BlurOut");
 
+            if(isFirst){
+                var clipTitle = a_Title.GetClip("Title_Out");
+                a_Title.clip = clipTitle;
+                a_Title.Play();
+                a_Title.playAutomatically = false;
+            }
+
+            var clipBackground = a_Background.GetClip("Background_Out");
+            a_Background.clip = clipBackground;
+            a_Background.Play();
+
+          
             foreach(Animation anim in a_HomeAnimations){
                 var anim_FaintOut = anim.GetClip("UI_FaintOut");
                 anim.clip = anim_FaintOut;
@@ -46,6 +60,7 @@ public class UIManager : MonoBehaviour {
 
             GameManager.instance.StartGame();
             SetArrowColor();
+            isFirst = false;
         }
     }
 
@@ -60,6 +75,17 @@ public class UIManager : MonoBehaviour {
     }
 
     public void OnHomePanel(){
+        var clipBackground = a_Background.GetClip("Background_In");
+        a_Background.clip = clipBackground;
+        a_Background.Play();
+
+        if(isFirst){
+            var clipTitle = a_Title.GetClip("Title_In");
+            a_Title.clip = clipTitle;
+            a_Title.Play();
+            isFirst = false;
+        }
+
         foreach (Animation anim in a_HomeAnimations)
         {
             var anim_FaintOut = anim.GetClip("UI_ScaleUpForBlack");

@@ -84,16 +84,18 @@ public class GameManager : MonoBehaviour {
                 UIManager.instance.SetScore();
 
             }
-            if(score == 5){
-                Level++;
+            //TODO: Make more levels[1..10];
+            if(score >= 7){
+                Level = 3;
             }
-            else if(score == 10){
-                Level++;
+            else if(score >= 5){
+                Level = 2;
             }
-            else if (score == 15)
+            else if (score >= 3)
             {
-                Level++;
+                Level = 1;
             }
+
         }
     }
 
@@ -217,6 +219,21 @@ public class GameManager : MonoBehaviour {
     }
 
     private void CheckTopScore(int _value){
+        if (_value >= 100 && PrefManager.instance.GetAchieve1() == 0)
+        {
+            SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_3);
+            return;
+        }
+        else if (_value >= 50 && PrefManager.instance.GetAchieve2() == 0)
+        {
+            SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_2);
+            return;
+        }
+        else if (_value >= 10 && PrefManager.instance.GetAchieve3() == 0)
+        {
+            SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_1);
+            return;
+        }
         if(_value > PrefManager.instance.GetTopScore()){
             PrefManager.instance.SetTopScore(_value);
         }
