@@ -182,9 +182,13 @@ public class GameManager : MonoBehaviour {
 
     private void SetConfig()
     {
-        SpawnTime = spawnTimes[Level];
-        EnemySpeed = enemySpeeds[Level];
-        BulletSpeed = bulletSpeeds[Level];
+        SpawnTime = spawnTimes[5];
+        EnemySpeed = enemySpeeds[5];
+        BulletSpeed = bulletSpeeds[5];
+
+        //SpawnTime = spawnTimes[Level];
+        //EnemySpeed = enemySpeeds[Level];
+        //BulletSpeed = bulletSpeeds[Level];
     }
 
     public void GameOver()
@@ -217,6 +221,7 @@ public class GameManager : MonoBehaviour {
         while(IsStart && IsPlaying){
             yield return new WaitForSeconds(spawnTime);
             var r = Random.Range(0, SPAWNER_LENGTH);
+            //var r = Random.Range(1, 3);
             spawner[r].Spawn();
         }
     }

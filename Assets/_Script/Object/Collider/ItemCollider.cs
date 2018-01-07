@@ -55,6 +55,10 @@ public class ItemCollider : MonoBehaviour {
                 SocialManager.instance.UnlockAchievement(SocialManager.ACHIEVE.ACHIEVE_5);
             }
 
+            if(count > 2){
+                UIManager.instance.scoreFloatValue = count;
+                UIManager.instance.OnScoresFloat();
+            }
 
             GameManager.instance.ShakeOnKillBoss();
 

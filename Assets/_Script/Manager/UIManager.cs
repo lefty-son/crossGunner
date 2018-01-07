@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour {
     public Animation a_Score, a_Background, a_Title;
     public Animation[] a_HomeAnimations, a_HomeScoreAnimations;
     public Text t_CurrentScore, t_LastScore, t_TopScore;
+    public GameObject p_Scores;
+    public int scoreFloatValue;
 
     public Image[] i_Left, i_Right;
 
@@ -18,6 +20,7 @@ public class UIManager : MonoBehaviour {
     {
         if (instance == null) instance = this;
         isFirst = true;
+        scoreFloatValue = 0;
     }
 
     public void Rate()
@@ -162,6 +165,10 @@ public class UIManager : MonoBehaviour {
 
     public void OnQuit(){
         Application.Quit();
+    }
+
+    public void OnScoresFloat(){
+        p_Scores.SetActive(true);
     }
 
 }

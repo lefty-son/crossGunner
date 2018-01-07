@@ -14,22 +14,31 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void PlayDestroy(){
+        if(PrefManager.instance.GetIsMuted() == 1){
+            return;
+        }
         _audio.PlayOneShot(destroy);
     }
 
     public void PlayItem(){
+        if (PrefManager.instance.GetIsMuted() == 1)
+        {
+            return;
+        }
         _audio.PlayOneShot(item);
     }
 
     public void PlayDeath(){
-
+        if (PrefManager.instance.GetIsMuted() == 1)
+        {
+            return;
+        }
         var r = Random.Range(0, 2);
         if(r == 0){
             _audio.PlayOneShot(deathOne);
         }
         else {
             _audio.PlayOneShot(deathTwo);
-
         }
     }
 }

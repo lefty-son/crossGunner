@@ -29,6 +29,48 @@ public class PlayerController : MonoBehaviour {
         Init();
     }
 
+    private void Update(){
+        if(Input.GetKeyDown(KeyCode.W)){
+            ShootLeft();
+            ChangeDirection(0);
+        }
+        else if(Input.GetKeyDown(KeyCode.A)){
+            ShootLeft();
+            ChangeDirection(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            ShootLeft();
+            ChangeDirection(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            ShootLeft();
+            ChangeDirection(3);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            ShootRight();
+            ChangeDirection(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            ShootRight();
+            ChangeDirection(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            ShootRight();
+            ChangeDirection(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            ShootRight();
+            ChangeDirection(3);
+        }
+    }
+
     private void Init(){
         sprr = GetComponent<SpriteRenderer>();
         direction = DIRECTION.TOP;
