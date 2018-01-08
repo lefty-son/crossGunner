@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     [SerializeField]
     private int adsMeter;
-    private readonly int adsLimit = 5;
+    private readonly int adsLimit = 80;
 
     public static GameManager instance;
 
@@ -86,23 +86,23 @@ public class GameManager : MonoBehaviour {
                 UIManager.instance.SetScore();
 
             }
-            if(score >= 30)
+            if(score >= 50)
             {
                 Level = 5;
             }
-            else if(score >= 20)
+            else if(score >= 40)
             {
                 Level = 4;
             }
-            else if(score >= 15)
+            else if(score >= 30)
             {
                 Level = 3;
             }
-            else if (score >= 10)
+            else if (score >= 20)
             {
                 Level = 2;
             }
-            else if(score >= 5)
+            else if(score >= 10)
             {
                 Level = 1;
             }
@@ -182,13 +182,13 @@ public class GameManager : MonoBehaviour {
 
     private void SetConfig()
     {
-        SpawnTime = spawnTimes[5];
-        EnemySpeed = enemySpeeds[5];
-        BulletSpeed = bulletSpeeds[5];
+        //SpawnTime = spawnTimes[5];
+        //EnemySpeed = enemySpeeds[5];
+        //BulletSpeed = bulletSpeeds[5];
 
-        //SpawnTime = spawnTimes[Level];
-        //EnemySpeed = enemySpeeds[Level];
-        //BulletSpeed = bulletSpeeds[Level];
+        SpawnTime = spawnTimes[Level];
+        EnemySpeed = enemySpeeds[Level];
+        BulletSpeed = bulletSpeeds[Level];
     }
 
     public void GameOver()
